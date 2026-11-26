@@ -1,0 +1,20 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy pyinstaller
+      - run: python FGM_NW_Builder.py selftest
+      - run: pyinstaller --onefile --windowed --name FGM_NW_Builder FGM_NW_Builder.py
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/FGM_NW_Builder.exe

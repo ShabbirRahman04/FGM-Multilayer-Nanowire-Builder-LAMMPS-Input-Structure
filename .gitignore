@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.nw
+build/
+dist/
+*.spec
