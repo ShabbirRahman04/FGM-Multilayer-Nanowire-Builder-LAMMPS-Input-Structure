@@ -1,54 +1,46 @@
-# FGM Multilayer Nanowire Builder
+# FGM Nanostructure Builder
 
-A Python-based tool for generating functionally graded, multilayer, and multicomponent nanowire structures for atomistic simulations.
+A desktop program that builds atom-position files (LAMMPS data format) for functionally graded (FGM) and multilayer / multi-element nanowires, cuboids and nanoparticles. It writes structure files only: it does not write LAMMPS input scripts or run simulations.
 
-## Overview
+Author: Md. Shabbir Rahman Siam. Released under the MIT License (see `LICENSE.txt`).
 
-FGM Nanowire Builder is a computational tool designed to facilitate the construction of complex nanowire structures for molecular dynamics simulations. It enables users to generate functionally graded nanowires, multilayer nanowires, and multielement alloy nanostructures, including high-entropy alloy (HEA) systems.
+## Download and run
 
-The application provides a graphical interface for configuring nanowire geometry, lattice structures, material compositions, and spatial distribution of elements. Users can construct nanowires with distinct material layers, compositionally graded regions, and multicomponent alloy configurations, providing flexibility in designing nanostructures for computational materials research.
+**Windows, no Python needed:** go to the [Releases](../../releases) page and download `FGM_NW_Builder.exe`. Windows may show a "protected your PC" warning because the file is not code-signed: choose *More info GåÆ Run anyway*.
 
-The generated atomic configurations can be exported in formats suitable for molecular dynamics simulations, including LAMMPS.
+**Any system with Python 3 (Windows, macOS, Linux):**
 
-## Features
+    pip install -r requirements.txt
+    python FGM_NW_Builder.py
 
-- Nanowire structure generation
-- Multilayer nanowire construction
-- Multielement alloy nanowire generation
-- High-entropy alloy (HEA) structure design
-- Functionally graded material (FGM) generation
-- Radial and axial composition grading
-- Configurable grading profiles
-- FCC and BCC crystal structures
-- Material composition control
-- Customizable structural parameters
-- Atomic structure export for molecular dynamics simulations
-- LAMMPS-compatible output
-- Graphical user interface
+Tkinter is needed for the window. It comes with Python on Windows and macOS; on Ubuntu/Debian install it with `sudo apt install python3-tk`.
 
-## Applications
+The full manual is inside the program: **Help > Manual** (key F1).
 
-The tool is intended for computational materials science and nanotechnology research, including:
+## Command line (no window needed)
 
-- Functionally graded nanomaterials
-- Multilayer nanowires
-- Multicomponent and high-entropy alloys
-- Nanomechanical behavior of alloy nanostructures
-- Composition-dependent mechanical properties
-- Atomistic modeling and molecular dynamics simulations
+    python FGM_NW_Builder.py build --direction axial --bins 10 --out wire.nw
+    python FGM_NW_Builder.py layered --example > spec.json
+    python FGM_NW_Builder.py layered --spec spec.json --out wire.nw
+    python FGM_NW_Builder.py combined --example > spec.json
+    python FGM_NW_Builder.py crystals --example > spec.json
+    python FGM_NW_Builder.py selftest
+    python FGM_NW_Builder.py build --help
 
-## Technology
+## Checking the program
 
-- Python
-- Tkinter
-- NumPy
+`python FGM_NW_Builder.py selftest` runs the built-in checks (exact atom counts, crystal geometry, spacings, periodic seams). They also run automatically on every push through GitHub Actions.
 
-## License
+## For the maintainer: publishing a new version
 
-Licensed under the MIT License. See the `LICENSE` file for details.
+1. Update `VERSION` near the top of `FGM_NW_Builder.py` and add a line to `CHANGELOG.md`.
+2. Commit, then tag and push the tag:
 
-## Author
+       git tag v1.1
+       git push origin main --tags
 
-Shabbir Rahman
+3. GitHub Actions builds `FGM_NW_Builder.exe` and attaches it to a new Release automatically.
 
-Copyright -¬ 2026 Shabbir Rahman.
+## How to cite
+
+See `CITATION.cff` (GitHub shows a "Cite this repository" button).
